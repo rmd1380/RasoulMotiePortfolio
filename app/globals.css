@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Font swaps automatically with the language direction */
+  html[lang='fa'] body {
+    font-family: var(--font-vazirmatn), Tahoma, sans-serif;
+  }
+  html[lang='en'] body {
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-zinc-50 text-zinc-900 antialiased transition-colors duration-300;
+  }
+  .dark body {
+    @apply bg-zinc-950 text-zinc-100;
+  }
+
+  /* Offset for fixed navbar when jumping to anchors */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
+  ::selection {
+    @apply bg-accent-500/30;
+  }
+}
+
+@layer components {
+  /* Reusable container */
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  /* Primary CTA button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-accent-600 px-6 py-3
+           text-sm font-semibold text-white shadow-lg shadow-accent-600/25
+           transition-all duration-300 hover:bg-accent-500 hover:shadow-accent-500/40
+           hover:-translate-y-0.5 active:translate-y-0 focus:outline-none
+           focus-visible:ring-2 focus-visible:ring-accent-400 focus-visible:ring-offset-2
+           focus-visible:ring-offset-zinc-50 dark:focus-visible:ring-offset-zinc-950;
+  }
+
+  /* Secondary / ghost button */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-zinc-300
+           px-6 py-3 text-sm font-semibold text-zinc-800 transition-all duration-300
+           hover:border-accent-500 hover:text-accent-600 hover:-translate-y-0.5
+           dark:border-zinc-700 dark:text-zinc-200 dark:hover:border-accent-500
+           dark:hover:text-accent-400;
+  }
+
+  /* Card surface */
+  .card {
+    @apply rounded-2xl border border-zinc-200 bg-white/70 backdrop-blur
+           transition-all duration-300 hover:border-accent-400/60 hover:shadow-xl
+           hover:shadow-accent-500/5 dark:border-zinc-800 dark:bg-zinc-900/50
+           dark:hover:border-accent-500/50;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-zinc-200 bg-zinc-100 px-3 py-1
+           text-xs font-medium text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800/60
+           dark:text-zinc-400;
+  }
+}
+
+/* Subtle scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-zinc-300 dark:bg-zinc-700;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-accent-500;
+}
