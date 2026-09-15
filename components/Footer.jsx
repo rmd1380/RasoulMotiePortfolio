@@ -24,7 +24,7 @@ export default function Footer() {
           <p className="mt-1 text-sm text-zinc-500">{t.footer.tagline}</p>
         </div>
 
-        <div className="flex gap-2">
+        {socials.length > 0 && <div className="flex gap-2">
           {socials.map((s) => {
             const Icon = SOCIAL_ICONS[s.icon] || Mail;
             return (
@@ -40,7 +40,7 @@ export default function Footer() {
               </a>
             );
           })}
-        </div>
+        </div>}
       </div>
 
       <div className="border-t border-zinc-200 py-5 dark:border-zinc-800">

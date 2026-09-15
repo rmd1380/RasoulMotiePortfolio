@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { Mail, Send, Linkedin, Youtube, Instagram, Twitter } from 'lucide-react';
 import Section from '@/components/ui/Section';
 import { useLanguage } from '@/components/providers/LanguageProvider';
@@ -11,13 +10,12 @@ const SOCIAL_ICONS = { Linkedin, Youtube, Instagram, Twitter };
 export default function Contact() {
   const { t } = useLanguage();
   const c = t.contact;
-  const [sent, setSent] = useState(false);
-
-  // Placeholder handler — wire up to an API route / email service later.
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 3000);
+    const form = new FormData(e.currentTarget);
+    const subject = encodeURIComponent(`${c.form.subjectPrefix}: ${form.get('name')}`);
+    const body = encodeURIComponent(`${c.form.name}: ${form.get('name')}\n${c.form.email}: ${form.get('email')}\n\n${form.get('message')}`);
+    window.location.href = `mailto:${c.email}?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -32,6 +30,7 @@ export default function Contact() {
             <Field label={c.form.name}>
               <input
                 type="text"
+                name="name"
                 required
                 placeholder={c.form.namePlaceholder}
                 className={inputCls}
@@ -40,6 +39,7 @@ export default function Contact() {
             <Field label={c.form.email}>
               <input
                 type="email"
+                name="email"
                 required
                 placeholder={c.form.emailPlaceholder}
                 className={inputCls}
@@ -49,14 +49,15 @@ export default function Contact() {
           <Field label={c.form.message}>
             <textarea
               rows={5}
+              name="message"
               required
               placeholder={c.form.messagePlaceholder}
               className={`${inputCls} resize-none`}
             />
           </Field>
           <button type="submit" className="btn-primary w-full sm:w-auto">
-            {sent ? '✓' : <Send className="h-4 w-4 rtl:rotate-180" />}
-            {sent ? '...' : c.form.submit}
+            <Send className="h-4 w-4 rtl:rotate-180" />
+            {c.form.submit}
           </button>
         </form>
 
@@ -77,7 +78,7 @@ export default function Contact() {
             </div>
           </a>
 
-          <div className="card p-5">
+          {socials.length > 0 && <div className="card p-5">
             <p className="mb-4 text-sm font-semibold text-zinc-500">{c.socialTitle}</p>
             <div className="flex flex-wrap gap-3">
               {socials.map((s) => {
@@ -96,7 +97,7 @@ export default function Contact() {
                 );
               })}
             </div>
-          </div>
+          </div>}
         </div>
       </div>
     </Section>

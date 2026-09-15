@@ -4,7 +4,9 @@ import About from '@/components/About';
 import Skills from '@/components/Skills';
 import Portfolio from '@/components/Portfolio';
 import Experience from '@/components/Experience';
-import Certificates from '@/components/Certificates';
+// Certificates is intentionally hidden for now; the component and content are
+// kept in the project so the section can be restored later.
+// import Certificates from '@/components/Certificates';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 
@@ -18,7 +20,7 @@ export default function Home() {
         <Skills />
         <Portfolio />
         <Experience />
-        <Certificates />
+        {/* <Certificates /> */}
         <Contact />
       </main>
       <Footer />

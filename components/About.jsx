@@ -17,14 +17,13 @@ export default function About() {
             <div className="flex h-full w-full items-center justify-center">
               <Film className="h-20 w-20 text-accent-500/60" strokeWidth={1.2} />
             </div>
-            <span className="absolute bottom-3 left-1/2 -translate-x-1/2 text-xs text-zinc-400">
-              Portrait / showreel placeholder
-            </span>
           </div>
           {/* Floating accent card */}
           <div className="absolute -bottom-5 ltr:-right-4 rtl:-left-4 animate-float rounded-2xl border border-zinc-200 bg-white px-5 py-4 shadow-xl dark:border-zinc-800 dark:bg-zinc-900">
-            <p className="text-2xl font-bold text-accent-600 dark:text-accent-400">6+</p>
-            <p className="text-xs text-zinc-500">years</p>
+            <p className="text-2xl font-bold text-accent-600 dark:text-accent-400">
+              {a.stat.value}
+            </p>
+            <p className="text-xs text-zinc-500">{a.stat.label}</p>
           </div>
         </div>
 

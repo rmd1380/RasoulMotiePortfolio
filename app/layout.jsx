@@ -15,10 +15,10 @@ const vazirmatn = Vazirmatn({
 });
 
 export const metadata = {
-  title: 'Arian Rezaei — Content Creator & Video Editor',
+  title: 'RasoulMotie — Content Creator & Video Editor',
   description:
-    'Premium portfolio of a Content Creator & Video Editor. Cinematic editing, content strategy and visual storytelling for brands and creators.',
-  keywords: ['Content Creator', 'Video Editor', 'Portfolio', 'Storytelling', 'Premiere Pro'],
+    'Portfolio of RasoulMotie, a content creator and video editor with experience in freelance projects, Eitaa, and the TechnoLearn YouTube channel.',
+  keywords: ['RasoulMotie', 'Content Creator', 'Video Editor', 'TechnoLearn', 'Portfolio'],
 };
 
 export const viewport = {
