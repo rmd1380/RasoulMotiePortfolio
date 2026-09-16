@@ -14,11 +14,37 @@ const vazirmatn = Vazirmatn({
   display: 'swap',
 });
 
+const socialTitle = 'Rasoul Motie — Video Editor & Content Creator';
+const socialDescription =
+  'Video editing, motion graphics, storytelling and content creation for YouTube and social media.';
+const socialImage = '/images/rasoul-motie-social-preview.jpg';
+
 export const metadata = {
-  title: 'RasoulMotie — Content Creator & Video Editor',
+  metadataBase: new URL('https://rasoulmotie.ir/'),
+  title: socialTitle,
   description:
-    'Portfolio of RasoulMotie, a content creator and video editor with experience in freelance projects, Eitaa, and the TechnoLearn YouTube channel.',
+    'Video Editor and Content Creator specializing in motion graphics, storytelling, YouTube and social media content.',
   keywords: ['RasoulMotie', 'Content Creator', 'Video Editor', 'TechnoLearn', 'Portfolio'],
+  openGraph: {
+    title: socialTitle,
+    description: socialDescription,
+    url: 'https://rasoulmotie.ir/',
+    type: 'website',
+    images: [
+      {
+        url: socialImage,
+        width: 1200,
+        height: 627,
+        alt: 'Rasoul Motie — Video Editor & Content Creator',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: socialTitle,
+    description: socialDescription,
+    images: [socialImage],
+  },
 };
 
 export const viewport = {

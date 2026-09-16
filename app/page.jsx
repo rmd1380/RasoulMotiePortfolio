@@ -10,6 +10,12 @@ import Experience from '@/components/Experience';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 
+export const metadata = {
+  alternates: {
+    canonical: 'https://rasoulmotie.ir/',
+  },
+};
+
 export default function Home() {
   return (
     <>
