@@ -138,6 +138,14 @@ export default function Portfolio() {
             <p className="max-w-2xl text-center text-sm font-medium text-white">
               {activeProject.title}
             </p>
+            <a
+              href={activeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-white/25 bg-white/10 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              {createYouTubeEmbedUrl(activeUrl) ? p.watchOnYouTube : p.watchOnAparat}
+            </a>
           </div>
         </div>
       )}
@@ -234,7 +242,7 @@ function createYouTubeEmbedUrl(input) {
     }
 
     if (!/^[\w-]{6,}$/.test(videoId)) return '';
-    return `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&playsinline=1&rel=0&hl=en`;
+    return `https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1&rel=0&hl=en`;
   } catch {
     return '';
   }
