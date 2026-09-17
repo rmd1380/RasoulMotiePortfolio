@@ -43,7 +43,7 @@ export default function Portfolio() {
 
   return (
     <Section id="portfolio" tag={p.tag} title={p.title} subtitle={p.subtitle}>
-      <div className="grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {p.projects.map((project, index) => {
           const media = portfolioMedia[index] ?? portfolioMedia[0];
           const sourceUrl = getSourceUrl(media, lang);
@@ -56,7 +56,7 @@ export default function Portfolio() {
                 onClick={() => canPlay && setActiveIndex(index)}
                 disabled={!canPlay}
                 aria-label={canPlay ? `${p.playLabel}: ${project.title}` : p.comingSoon}
-                className={`relative block w-full overflow-hidden bg-gradient-to-br from-accent-500/15 via-zinc-200/50 to-zinc-100 text-start disabled:cursor-default dark:from-accent-600/20 dark:via-zinc-800/60 dark:to-zinc-900 ${media.orientation === 'portrait' ? 'aspect-[9/16]' : 'aspect-video'}`}
+                className="relative block aspect-video w-full shrink-0 overflow-hidden bg-gradient-to-br from-accent-500/15 via-zinc-200/50 to-zinc-100 text-start disabled:cursor-default dark:from-accent-600/20 dark:via-zinc-800/60 dark:to-zinc-900"
               >
                 <VideoCover media={media} title={project.title} />
 
@@ -76,15 +76,15 @@ export default function Portfolio() {
 
               <div className="flex flex-1 flex-col p-5">
                 <div className="flex items-start justify-between gap-3">
-                  <h3 className="text-lg font-semibold transition-colors group-hover:text-accent-600 dark:group-hover:text-accent-400">
+                  <h3 title={project.title} className="line-clamp-2 min-h-[3.5rem] text-lg font-semibold leading-7 transition-colors group-hover:text-accent-600 dark:group-hover:text-accent-400">
                     {project.title}
                   </h3>
                   {!canPlay && <span className="chip shrink-0">{p.comingSoon}</span>}
                 </div>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+                <p className="mt-2 line-clamp-2 min-h-[2.5rem] text-sm leading-5 text-zinc-600 dark:text-zinc-400">
                   {project.description}
                 </p>
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="mt-auto flex flex-wrap gap-2 pt-4">
                   {project.tags.map((tag) => (
                     <span key={tag} className="chip">
                       {tag}
@@ -184,7 +184,7 @@ function VideoCover({ media, title }) {
           alt={title}
           loading="lazy"
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover shadow-2xl"
+          className="absolute inset-y-0 left-1/2 h-full w-[31.64%] -translate-x-1/2 object-cover shadow-2xl"
         />
       </>
     );
