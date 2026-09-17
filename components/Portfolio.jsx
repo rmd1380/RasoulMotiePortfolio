@@ -43,7 +43,7 @@ export default function Portfolio() {
 
   return (
     <Section id="portfolio" tag={p.tag} title={p.title} subtitle={p.subtitle}>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {p.projects.map((project, index) => {
           const media = portfolioMedia[index] ?? portfolioMedia[0];
           const sourceUrl = getSourceUrl(media, lang);
@@ -56,7 +56,7 @@ export default function Portfolio() {
                 onClick={() => canPlay && setActiveIndex(index)}
                 disabled={!canPlay}
                 aria-label={canPlay ? `${p.playLabel}: ${project.title}` : p.comingSoon}
-                className="relative block aspect-video w-full overflow-hidden bg-gradient-to-br from-accent-500/15 via-zinc-200/50 to-zinc-100 text-start disabled:cursor-default dark:from-accent-600/20 dark:via-zinc-800/60 dark:to-zinc-900"
+                className={`relative block w-full overflow-hidden bg-gradient-to-br from-accent-500/15 via-zinc-200/50 to-zinc-100 text-start disabled:cursor-default dark:from-accent-600/20 dark:via-zinc-800/60 dark:to-zinc-900 ${media.orientation === 'portrait' ? 'aspect-[9/16]' : 'aspect-video'}`}
               >
                 <VideoCover media={media} title={project.title} />
 
@@ -70,7 +70,7 @@ export default function Portfolio() {
                   {media.orientation === 'portrait' ? p.verticalLabel : p.horizontalLabel}
                 </span>
                 <span className="absolute top-3 ltr:right-3 rtl:left-3 rounded-full bg-zinc-950/70 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur">
-                  {lang === 'fa' ? p.aparatLabel : p.youtubeLabel}
+                  {sourceUrl === media.aparatUrl && sourceUrl ? p.aparatLabel : p.youtubeLabel}
                 </span>
               </button>
 
@@ -121,8 +121,8 @@ export default function Portfolio() {
             <div
               className={`relative overflow-hidden rounded-2xl bg-black shadow-2xl ${
                 activeMedia.orientation === 'portrait'
-                  ? 'h-[82vh] max-h-[760px] w-auto max-w-[92vw] aspect-[9/16]'
-                  : 'aspect-video w-[92vw] max-w-5xl'
+                  ? 'aspect-[9/16] w-[min(92vw,46.125vh,427.5px)]'
+                  : 'aspect-video w-[min(92vw,145.78vh,1024px)]'
               }`}
             >
               <iframe
@@ -146,6 +146,12 @@ export default function Portfolio() {
 }
 
 function VideoCover({ media, title }) {
+  const [useFallback, setUseFallback] = useState(false);
+  const cover = useFallback ? media.coverFallback || media.cover : media.cover;
+  const checkCover = (event) => {
+    // A missing max-resolution YouTube cover may return a tiny placeholder.
+    if (event.currentTarget.naturalWidth <= 120) setUseFallback(true);
+  };
   if (!media.cover) {
     return (
       <div className="absolute inset-0 flex items-center justify-center opacity-35">
@@ -162,7 +168,9 @@ function VideoCover({ media, title }) {
     return (
       <>
         <img
-          src={media.cover}
+          src={cover}
+          onLoad={checkCover}
+          onError={() => setUseFallback(true)}
           alt=""
           aria-hidden="true"
           loading="lazy"
@@ -170,11 +178,13 @@ function VideoCover({ media, title }) {
           className="absolute inset-0 h-full w-full scale-110 object-cover opacity-45 blur-xl"
         />
         <img
-          src={media.cover}
+          src={cover}
+          onLoad={checkCover}
+          onError={() => setUseFallback(true)}
           alt={title}
           loading="lazy"
           decoding="async"
-          className="absolute inset-y-0 left-1/2 h-full w-auto -translate-x-1/2 object-cover shadow-2xl"
+          className="absolute inset-0 h-full w-full object-cover shadow-2xl"
         />
       </>
     );
@@ -182,7 +192,9 @@ function VideoCover({ media, title }) {
 
   return (
     <img
-      src={media.cover}
+      src={cover}
+      onLoad={checkCover}
+      onError={() => setUseFallback(true)}
       alt={title}
       loading="lazy"
       decoding="async"
@@ -192,11 +204,11 @@ function VideoCover({ media, title }) {
 }
 
 function getSourceUrl(media, lang) {
-  return lang === 'fa' ? media.aparatUrl : media.youtubeUrl;
+  return lang === 'fa' ? media.aparatUrl || media.youtubeUrl : media.youtubeUrl || media.aparatUrl;
 }
 
 function createEmbedUrl(input, lang) {
-  return lang === 'fa' ? createAparatEmbedUrl(input) : createYouTubeEmbedUrl(input);
+  return createYouTubeEmbedUrl(input) || createAparatEmbedUrl(input);
 }
 
 function createYouTubeEmbedUrl(input) {
