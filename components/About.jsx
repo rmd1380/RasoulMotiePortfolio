@@ -1,25 +1,31 @@
 'use client';
 
-import { Check, Film } from 'lucide-react';
+import { Check } from 'lucide-react';
 import Section from '@/components/ui/Section';
 import { useLanguage } from '@/components/providers/LanguageProvider';
 
 export default function About() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const a = t.about;
 
   return (
     <Section id="about" tag={a.tag}>
       <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-        {/* Visual / portrait placeholder */}
-        <div className="relative order-1 lg:order-none">
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-3xl border border-zinc-200 bg-gradient-to-br from-accent-500/10 to-zinc-200/40 dark:border-zinc-800 dark:from-accent-600/15 dark:to-zinc-900">
-            <div className="flex h-full w-full items-center justify-center">
-              <Film className="h-20 w-20 text-accent-500/60" strokeWidth={1.2} />
-            </div>
+        {/* Square frame preserves the supplied portrait without cropping. */}
+        <div className="relative order-1 mx-auto w-full max-w-sm pb-6 lg:order-none">
+          <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-zinc-200 bg-zinc-100 shadow-xl dark:border-zinc-800 dark:bg-zinc-900">
+            <img
+              src="/images/rasoul-motie-portrait.png"
+              alt={lang === 'fa' ? 'رسول مطیع — تدوینگر ویدیو و تولیدکننده محتوا' : 'Rasoul Motie — Video Editor & Content Creator'}
+              width={1254}
+              height={1254}
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-contain"
+            />
           </div>
           {/* Floating accent card */}
-          <div className="absolute -bottom-5 ltr:-right-4 rtl:-left-4 animate-float rounded-2xl border border-zinc-200 bg-white px-5 py-4 shadow-xl dark:border-zinc-800 dark:bg-zinc-900">
+          <div className="absolute bottom-0 ltr:right-4 rtl:left-4 rounded-2xl border border-zinc-200 bg-white px-5 py-4 shadow-xl dark:border-zinc-800 dark:bg-zinc-900">
             <p className="text-2xl font-bold text-accent-600 dark:text-accent-400">
               {a.stat.value}
             </p>
